@@ -1,25 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>داشبورد مدیریت شفاخانه</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>داشبورد مدیریت شفاخانه</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="sidebar">
-            <h2>🏥 شفاخانه</h2>
-            <ul>
-                <li class="active">📊 داشبورد</li>
-                <li>👨‍⚕️ داکتران</li>
-                <li>👩‍⚕️ پرستاران</li>
-                <li>🧑 مریضان</li>
-                <li>📅 نوبت دهی</li>
-                <li>📋 سوابق مریضی</li>
-                <li>⚙ تنظیمات</li>
-                <li>🚪 خروج</li>
-            </ul>
+      <h2>🏥 شفاخانه</h2>
+      <ul>
+        <li class="active">📊 داشبورد</li>
+        <li>👨‍⚕️ داکتران</li>
+        <li>👩‍⚕️ پرستاران</li>
+        <li>🧑 مریضان</li>
+        <li>📅 نوبت دهی</li>
+        <li>📋 سوابق مریضی</li>
+        <li>⚙ تنظیمات</li>
+        <li>🚪 خروج</li>
+      </ul>
     </div>
-
-</body>
+    <div class="content">
+            <div class="alert">
+                <strong>هشدار:</strong>
+                ۲ درخواست نوبت جدید در انتظار تایید است.
+            </div>
+        <h1>داشبورد مدیریت شفاخانه</h1>
+        <div class="stats">
+            <div class="box blue">
+                <h3>داکتران</h3>
+                <h2>18</h2>
+                <span>فعال</span>
+            </div>
+            <div class="box green">
+                <h3>پرستاران</h3>
+                <h2>26</h2>
+                <span>فعال</span>
+            </div>
+            <div class="box purple">
+                <h3>مریضان</h3>
+                <h2>245</h2>
+                <span>ثبت شده</span>
+            </div>
+        </div>
+        <h2>مریضان اخیر</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>احمد احمدی</h3>
+                <p>سن : ۳۰ سال</p>
+                <p>گروه خون : +A</p>
+                <button>مشاهده پرونده</button>
+            </div>
+            <div class="card">
+                <h3>محمد کریمی</h3>
+                <p>سن : ۴۲ سال</p>
+                <p>گروه خون : +O</p>
+                <button>مشاهده پرونده</button>
+            </div>
+            <div class="card">
+                <h3>فاطمه حسینی</h3>
+                <p>سن : ۲۵ سال</p>
+                <p>گروه خون : B+</p>
+                <button>مشاهده پرونده</button>
+            </div>
+        </div>
+    </div>
+  </body>
 </html>
