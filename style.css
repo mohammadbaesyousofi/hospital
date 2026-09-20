@@ -139,3 +139,134 @@
     .card button:hover{
         background:#1565C0;
     }
+    table{
+        width:100%;
+        background:white;
+        margin:30px 0;
+        border-collapse:collapse;
+        border-radius:12px;
+        overflow:hidden;
+        box-shadow:0 5px 15px rgba(0,0,0,.08);
+    }
+
+    th{
+        background:#0F4C81;
+        color:white;
+        padding:15px;
+    }
+
+    td{
+        padding:15px;
+        border-bottom:1px solid #eee;
+        text-align:center;
+    }
+
+    tr:hover{
+        background:#f8fbff;
+    }
+
+    .success{
+        color:#2E7D32;
+        font-weight:bold;
+    }
+
+    .warning{
+        color:#FB8C00;
+        font-weight:bold;
+    }
+
+    .danger{
+        color:#D32F2F;
+        font-weight:bold;
+    }
+
+    form{
+        background:white;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,.08);
+        display:flex;
+        flex-direction:column;
+        gap:18px;
+        margin-top:20px;
+    }
+
+    input,
+    select,
+    textarea{
+        padding:14px;
+        border:1px solid #ddd;
+        border-radius:8px;
+        font-size:15px;
+        outline:none;
+        transition:.3s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus{
+        border-color:#1976D2;
+    }
+
+    textarea{
+        height:120px;
+        resize:none;
+    }
+
+    form button{
+        padding:14px;
+        background:#0F4C81;
+        color:white;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:16px;
+        transition:.3s;
+    }
+
+    form button:hover{
+        background:#1565C0;
+    }
+ @media(max-width:900px){
+
+        .sidebar{
+        width:220px;
+
+        }
+
+        .content{
+        margin-right:220px;
+        }
+
+    }
+
+    @media(max-width:768px){
+
+        body{
+        flex-direction:column;
+        }
+
+        .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+        }
+
+        .content{
+
+        margin-right:0;
+        padding:20px;
+        }
+
+        .stats,
+        .cards{
+        grid-template-columns:1fr;
+        }
+
+        table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+        }
+
+    }
