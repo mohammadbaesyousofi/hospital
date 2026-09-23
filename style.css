@@ -28,6 +28,10 @@
         text-align:center;
         margin-bottom:35px;
     }
+    .sidebar ul a{
+        text-decoration:none;
+        color:white;
+    }
 
     .sidebar ul{
         list-style:none;
@@ -41,11 +45,12 @@
         transition:.3s;
     }
 
+
     .sidebar li:hover,
     .sidebar .active{
         background:#1d6fa5;
     }
-.content{
+    .content{
         margin-right:260px;
         padding:30px;
         width:100%;

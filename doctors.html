@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مدیریت داکتران - شفاخانه</title>
+    <!-- اضافه کردن فونت فارسی وزیرمتن -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
+      rel="stylesheet" />
+    <!-- اضافه کردن آیکون‌ها -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+      /* تنظیمات کلی و رنگ‌ها */
+      :root {
+        --sidebar-bg: #2b5b84;
+        --sidebar-hover: #3b76a8;
+        --sidebar-active: #1d4364;
+        --main-bg: #f4f7f6;
+        --card-blue: #4a90e2;
+        --card-green: #5cb85c;
+        --card-purple: #8e44ad;
+        --table-header: #4a7699;
+        --text-dark: #333;
+        --text-light: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Vazirmatn", sans-serif;
+      }
+
+      body {
+        background-color: var(--main-bg);
+        display: flex;
+        min-height: 100vh;
+        color: var(--text-dark);
+      }
+
+      /* --- سایدبار (Sidebar) --- */
+      .sidebar {
+        width: 250px;
+        background-color: var(--sidebar-bg);
+        color: var(--text-light);
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      .sidebar-logo {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding-bottom: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .sidebar-logo i {
+        margin-left: 10px;
+      }
+
+      .sidebar-menu {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 15px;
+      }
+
+      .sidebar-menu li a {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .sidebar-menu li a:hover {
+        background-color: var(--sidebar-hover);
+        color: var(--text-light);
+      }
+
+      /* حالت فعال برای منوی داکتران */
+      .sidebar-menu li a.active {
+        background-color: var(--sidebar-active);
+        color: var(--text-light);
+        font-weight: 700;
+        box-shadow: inset -4px 0 0 #fff;
+      }
+
+      .sidebar-menu li a i {
+        margin-left: 15px;
+        width: 20px;
+        text-align: center;
+      }
+
+      /* --- بخش محتوای اصلی (Main Content) --- */
+      .main-content {
+        margin-right: 250px; /* به دلیل راست‌چین بودن، مارجین از راست */
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* هدر صفحه */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      }
+
+      .page-header h1 {
+        font-size: 1.5rem;
+        color: var(--text-dark);
+      }
+
+      .btn-add {
+        background-color: var(--card-blue);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: "Vazirmatn", sans-serif;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s;
+      }
+
+      .btn-add:hover {
+        background-color: #357abd;
+      }
+
+      /* کارت‌های آماری (اختیاری - برای زیبایی بیشتر) */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+      .stat-card {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .stat-card h3 {
+        font-size: 1rem;
+        color: #777;
+        margin-bottom: 10px;
+      }
+
+      .stat-card p {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      /* جدول داکتران */
+      .table-container {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        overflow: hidden;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: right;
+      }
+
+      thead {
+        background-color: var(--table-header);
+        color: white;
+      }
+
+      th,
+      td {
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      tbody tr:hover {
+        background-color: #f9fbfc;
+      }
+
+      /* دکمه‌های عملیات در جدول */
+      .action-btns {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-edit,
+      .btn-delete {
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: "Vazirmatn", sans-serif;
+        font-size: 0.85rem;
+        transition: 0.3s;
+      }
+
+      .btn-edit {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      .btn-edit:hover {
+        background-color: #bbdefb;
+      }
+
+      .btn-delete {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+
+      .btn-delete:hover {
+        background-color: #ffcdd2;
+      }
+
+      /* برچسب وضعیت */
+      .status-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .status-active {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .status-leave {
+        background-color: #fff3e0;
+        color: #ef6c00;
+      }
+
+      /* واکنش‌گرایی (Responsive) */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 70px;
+          padding: 20px 0;
+        }
+        .sidebar-logo span,
+        .sidebar-menu li a span {
+          display: none;
+        }
+        .sidebar-logo i {
+          margin: 0;
+        }
+        .sidebar-menu li a {
+          justify-content: center;
+          padding: 15px;
+        }
+        .sidebar-menu li a i {
+          margin: 0;
+          font-size: 1.2rem;
+        }
+        .main-content {
+          margin-right: 70px;
+          padding: 15px;
+        }
+        .page-header {
+          flex-direction: column;
+          gap: 15px;
+          align-items: flex-start;
+        }
+        table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- سایدبار -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <i class="fa-solid fa-hospital"></i>
+        <span>شفاخانه</span>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="index.html"
+            ><i class="fa-solid fa-chart-pie"></i> <span>داشبورد</span></a
+          >
+        </li>
+        <!-- منوی فعال (داکتران) -->
+        <li>
+          <a href="#" class="active"
+            ><i class="fa-solid fa-user-doctor"></i> <span>داکتران</span></a
+          >
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-users"></i> <span>پرسونل</span></a>
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-bed-pulse"></i> <span>مریضان</span></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-calendar-check"></i> <span>نوبت دهی</span></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-notes-medical"></i>
+            <span>سوابق مریضی</span></a
+          >
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-gear"></i> <span>تنظیمات</span></a>
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-right-from-bracket"></i> <span>خروج</span></a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <!-- محتوای اصلی -->
+    <main class="main-content">
+      <!-- هدر صفحه و دکمه اضافه کردن -->
+      <header class="page-header">
+        <h1>مدیریت داکتران</h1>
+        <button class="btn-add">
+          <i class="fa-solid fa-plus"></i> اضافه کردن داکتر جدید
+        </button>
+      </header>
+
+      <!-- کارت‌های آماری (به عنوان مثال) -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>مجموع داکتران</h3>
+          <p>۱۸</p>
+        </div>
+        <div class="stat-card">
+          <h3>داکتران فعال</h3>
+          <p>۱۵</p>
+        </div>
+        <div class="stat-card">
+          <h3>در رخصتی</h3>
+          <p>۳</p>
+        </div>
+      </div>
+
+      <!-- جدول داکتران -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>نام داکتر</th>
+              <th>تخصص</th>
+              <th>شماره تماس</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>داکتر احمد احمدی</td>
+              <td>جراحی عمومی</td>
+              <td>۰۷۸۹۱۲۳۴۵۶</td>
+              <td><span class="status-badge status-active">فعال</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn-edit">
+                    <i class="fa-solid fa-pen"></i> ویرایش
+                  </button>
+                  <button class="btn-delete">
+                    <i class="fa-solid fa-trash"></i> حذف
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>داکتر محمد کریمی</td>
+              <td>امراض داخله</td>
+              <td>۰۷۷۷۸۸۹۹۰۰</td>
+              <td><span class="status-badge status-active">فعال</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn-edit">
+                    <i class="fa-solid fa-pen"></i> ویرایش
+                  </button>
+                  <button class="btn-delete">
+                    <i class="fa-solid fa-trash"></i> حذف
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>داکتر فاطمه حسینی</td>
+              <td>امراض نسایی ولادی</td>
+              <td>۰۷۹۹۱۱۲۲۳۳</td>
+              <td><span class="status-badge status-leave">در رخصتی</span></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn-edit">
+                    <i class="fa-solid fa-pen"></i> ویرایش
+                  </button>
+                  <button class="btn-delete">
+                    <i class="fa-solid fa-trash"></i> حذف
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
