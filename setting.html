@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تنظیمات - شفاخانه</title>
+    <!-- اضافه کردن فونت فارسی وزیرمتن -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
+      rel="stylesheet" />
+    <!-- اضافه کردن آیکون‌ها -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+      /* تنظیمات کلی و رنگ‌ها */
+      :root {
+        --sidebar-bg: #2b5b84;
+        --sidebar-hover: #3b76a8;
+        --sidebar-active: #1d4364;
+        --main-bg: #f4f7f6;
+        --text-dark: #333;
+        --text-light: #fff;
+        --primary-color: #4a90e2;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Vazirmatn", sans-serif;
+      }
+
+      body {
+        background-color: var(--main-bg);
+        display: flex;
+        min-height: 100vh;
+        color: var(--text-dark);
+      }
+
+      /* --- سایدبار (Sidebar) --- */
+      .sidebar {
+        width: 250px;
+        background-color: var(--sidebar-bg);
+        color: var(--text-light);
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 100;
+      }
+
+      .sidebar-logo {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding-bottom: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .sidebar-logo i {
+        margin-left: 10px;
+      }
+
+      .sidebar-menu {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 15px;
+      }
+
+      .sidebar-menu li a {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .sidebar-menu li a:hover {
+        background-color: var(--sidebar-hover);
+        color: var(--text-light);
+      }
+
+      /* حالت فعال برای منوی تنظیمات */
+      .sidebar-menu li a.active {
+        background-color: var(--sidebar-active);
+        color: var(--text-light);
+        font-weight: 700;
+        box-shadow: inset -4px 0 0 #fff;
+      }
+
+      .sidebar-menu li a i {
+        margin-left: 15px;
+        width: 20px;
+        text-align: center;
+      }
+
+      /* --- بخش محتوای اصلی (Main Content) --- */
+      .main-content {
+        margin-right: 250px;
+        flex: 1;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* هدر صفحه */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      }
+
+      .page-header h1 {
+        font-size: 1.5rem;
+        color: var(--text-dark);
+      }
+
+      .btn-save {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: "Vazirmatn", sans-serif;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s;
+      }
+
+      .btn-save:hover {
+        background-color: #357abd;
+      }
+
+      /* کانتینر تنظیمات */
+      .settings-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .settings-card {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        border: 1px solid #eee;
+      }
+
+      .settings-card h3 {
+        font-size: 1.2rem;
+        color: var(--text-dark);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .settings-card h3 i {
+        color: var(--primary-color);
+      }
+
+      /* فرم‌ها */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group.full-width {
+        grid-column: span 2;
+      }
+
+      .form-group label {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .form-control {
+        padding: 12px 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: "Vazirmatn", sans-serif;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.3s;
+        background-color: #f9fbfc;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary-color);
+        background-color: #fff;
+      }
+
+      textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      /* سوییچ‌های روشن/خاموش (Toggle Switches) */
+      .toggle-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .toggle-group:last-child {
+        border-bottom: none;
+      }
+
+      .toggle-info h4 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .toggle-info p {
+        font-size: 0.85rem;
+        color: #888;
+      }
+
+      /* استایل سوییچ */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        right: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary-color);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(-24px);
+      }
+
+      /* واکنش‌گرایی (Responsive) */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 70px;
+          padding: 20px 0;
+        }
+        .sidebar-logo span,
+        .sidebar-menu li a span {
+          display: none;
+        }
+        .sidebar-logo i {
+          margin: 0;
+        }
+        .sidebar-menu li a {
+          justify-content: center;
+          padding: 15px;
+        }
+        .sidebar-menu li a i {
+          margin: 0;
+          font-size: 1.2rem;
+        }
+        .main-content {
+          margin-right: 70px;
+          padding: 15px;
+        }
+        .page-header {
+          flex-direction: column;
+          gap: 15px;
+          align-items: flex-start;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-group.full-width {
+          grid-column: span 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- سایدبار -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <i class="fa-solid fa-hospital"></i>
+        <span>شفاخانه</span>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-chart-pie"></i> <span>داشبورد</span></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-user-doctor"></i> <span>داکتران</span></a
+          >
+        </li>
+        <li>
+          <a href="#"><i class="fa-solid fa-users"></i> <span>پرسونل</span></a>
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-bed-pulse"></i> <span>مریضان</span></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-calendar-check"></i> <span>نوبت دهی</span></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-notes-medical"></i>
+            <span>سوابق مریضی</span></a
+          >
+        </li>
+        <!-- منوی فعال (تنظیمات) -->
+        <li>
+          <a href="#" class="active"
+            ><i class="fa-solid fa-gear"></i> <span>تنظیمات</span></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fa-solid fa-right-from-bracket"></i> <span>خروج</span></a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <!-- محتوای اصلی -->
+    <main class="main-content">
+      <!-- هدر صفحه و دکمه ذخیره -->
+      <header class="page-header">
+        <h1>تنظیمات سیستم</h1>
+        <button class="btn-save">
+          <i class="fa-solid fa-floppy-disk"></i> ذخیره تغییرات
+        </button>
+      </header>
+
+      <div class="settings-container">
+        <!-- بخش ۱: معلومات عمومی شفاخانه -->
+        <div class="settings-card">
+          <h3><i class="fa-solid fa-building"></i> معلومات عمومی شفاخانه</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>نام شفاخانه</label>
+              <input
+                type="text"
+                class="form-control"
+                value="شفاخانه مرکزی شفا" />
+            </div>
+            <div class="form-group">
+              <label>شماره تماس</label>
+              <input type="text" class="form-control" value="۰۷۸۹۱۲۳۴۵۶" />
+            </div>
+            <div class="form-group full-width">
+              <label>آدرس</label>
+              <input
+                type="text"
+                class="form-control"
+                value="کابل، ناحیه ۴، جاده اصلی" />
+            </div>
+            <div class="form-group full-width">
+              <label>درباره شفاخانه</label>
+              <textarea class="form-control">
+شفاخانه مرکزی شفا با ارائه خدمات صحی معیاری و پرسنل مجرب در خدمت هموطنان عزیز است.</textarea
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- بخش ۲: تنظیمات امنیتی -->
+        <div class="settings-card">
+          <h3><i class="fa-solid fa-lock"></i> تنظیمات امنیتی</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>رمز عبور فعلی</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="••••••••" />
+            </div>
+            <div class="form-group">
+              <label>رمز عبور جدید</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="••••••••" />
+            </div>
+            <div class="form-group">
+              <label>تکرار رمز عبور جدید</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="••••••••" />
+            </div>
+          </div>
+        </div>
+
+        <!-- بخش ۳: اطلاعیه‌ها و اعلان‌ها -->
+        <div class="settings-card">
+          <h3><i class="fa-solid fa-bell"></i> اطلاعیه‌ها و اعلان‌ها</h3>
+
+          <div class="toggle-group">
+            <div class="toggle-info">
+              <h4>اعلان نوبت‌های جدید</h4>
+              <p>دریافت اطلاعیه هنگام ثبت نوبت جدید توسط مریضان</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-info">
+              <h4>اعلان پیام‌های سیستمی</h4>
+              <p>دریافت ایمیل هنگام بروزرسانی‌های مهم سیستم</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-group">
+            <div class="toggle-info">
+              <h4>اطلاعیه‌های پیامکی (SMS)</h4>
+              <p>ارسال پیامک یادآوری به مریضان قبل از زمان نوبت</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
