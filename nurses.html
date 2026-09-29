@@ -3,476 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>داشبورد مدیریت شفاخانه</title>
-    <!-- اضافه کردن فونت فارسی وزیرمتن -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap"
-      rel="stylesheet" />
-    <!-- اضافه کردن آیکون‌ها -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <style>
-      /* تنظیمات کلی و رنگ‌ها */
-      :root {
-        --sidebar-bg: #2b5b84;
-        --sidebar-hover: #3b76a8;
-        --sidebar-active: #1d4364;
-        --main-bg: #f4f7f6;
-        --card-blue: #4a90e2;
-        --card-green: #5cb85c;
-        --card-purple: #8e44ad;
-        --table-header: #4a7699;
-        --text-dark: #333;
-        --text-light: #fff;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Vazirmatn", sans-serif;
-      }
-
-      body {
-        background-color: var(--main-bg);
-        display: flex;
-        min-height: 100vh;
-        color: var(--text-dark);
-      }
-
-      /* --- سایدبار (Sidebar) --- */
-      .sidebar {
-        width: 250px;
-        background-color: var(--sidebar-bg);
-        color: var(--text-light);
-        display: flex;
-        flex-direction: column;
-        padding: 20px 0;
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        right: 0;
-        top: 0;
-        height: 100vh;
-        overflow-y: auto;
-        z-index: 100;
-      }
-
-      .sidebar-logo {
-        text-align: center;
-        font-size: 1.5rem;
-        font-weight: 700;
-        padding-bottom: 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 20px;
-      }
-
-      .sidebar-logo i {
-        margin-left: 10px;
-      }
-
-      .sidebar-menu {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        padding: 0 15px;
-      }
-
-      .sidebar-menu li a {
-        display: flex;
-        align-items: center;
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        padding: 12px 15px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-      }
-
-      .sidebar-menu li a:hover {
-        background-color: var(--sidebar-hover);
-        color: var(--text-light);
-      }
-
-      /* حالت فعال برای منوی داشبورد */
-      .sidebar-menu li a.active {
-        background-color: var(--sidebar-active);
-        color: var(--text-light);
-        font-weight: 700;
-        box-shadow: inset -4px 0 0 #fff;
-      }
-
-      .sidebar-menu li a i {
-        margin-left: 15px;
-        width: 20px;
-        text-align: center;
-      }
-
-      /* --- بخش محتوای اصلی (Main Content) --- */
-      .main-content {
-        margin-right: 250px;
-        flex: 1;
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-      }
-
-      /* هشدار بالای صفحه */
-      .alert-box {
-        background-color: #fff9e6;
-        border-right: 5px solid #f0ad4e;
-        color: #856404;
-        padding: 15px 20px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 500;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-      }
-
-      .alert-box i {
-        font-size: 1.2rem;
-      }
-
-      /* عنوان صفحه */
-      .page-title {
-        font-size: 1.4rem;
-        color: var(--text-dark);
-        font-weight: 700;
-      }
-
-      /* کارت‌های آماری (Stat Cards) */
-      .stats-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-      }
-
-      .stat-card {
-        border-radius: 12px;
-        padding: 25px;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease;
-      }
-
-      .stat-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .stat-card.blue {
-        background-color: var(--card-blue);
-      }
-      .stat-card.green {
-        background-color: var(--card-green);
-      }
-      .stat-card.purple {
-        background-color: var(--card-purple);
-      }
-
-      .stat-info h3 {
-        font-size: 1.1rem;
-        font-weight: 500;
-        margin-bottom: 10px;
-        opacity: 0.9;
-      }
-
-      .stat-info .number {
-        font-size: 2.5rem;
-        font-weight: 700;
-      }
-
-      .stat-icon {
-        font-size: 3rem;
-        opacity: 0.3;
-      }
-
-      /* بخش مریضان اخیر */
-      .section-title {
-        font-size: 1.2rem;
-        color: var(--text-dark);
-        margin-bottom: 15px;
-        font-weight: 700;
-      }
-
-      .recent-patients-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
-
-      .patient-card {
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        border: 1px solid #eee;
-      }
-
-      .patient-card h4 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-        color: var(--text-dark);
-      }
-
-      .patient-card p {
-        font-size: 0.9rem;
-        color: #666;
-        margin-bottom: 5px;
-      }
-
-      .patient-card .btn-view {
-        margin-top: 15px;
-        background-color: #5b7f9e;
-        color: white;
-        border: none;
-        padding: 10px 0;
-        width: 100%;
-        border-radius: 6px;
-        cursor: pointer;
-        font-family: "Vazirmatn", sans-serif;
-        font-size: 0.9rem;
-        transition: background 0.3s;
-      }
-
-      .patient-card .btn-view:hover {
-        background-color: #3b76a8;
-      }
-
-      /* جدول سابقه بیماری */
-      .table-container {
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-        overflow: hidden;
-        border: 1px solid #eee;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: right;
-      }
-
-      thead {
-        background-color: var(--table-header);
-        color: white;
-      }
-
-      th,
-      td {
-        padding: 15px 20px;
-        border-bottom: 1px solid #eee;
-        font-size: 0.95rem;
-      }
-
-      th {
-        font-weight: 500;
-      }
-
-      tbody tr:hover {
-        background-color: #f9fbfc;
-      }
-
-      /* واکنش‌گرایی (Responsive) */
-      @media (max-width: 768px) {
-        .sidebar {
-          width: 70px;
-          padding: 20px 0;
-        }
-        .sidebar-logo span,
-        .sidebar-menu li a span {
-          display: none;
-        }
-        .sidebar-logo i {
-          margin: 0;
-        }
-        .sidebar-menu li a {
-          justify-content: center;
-          padding: 15px;
-        }
-        .sidebar-menu li a i {
-          margin: 0;
-          font-size: 1.2rem;
-        }
-        .main-content {
-          margin-right: 70px;
-          padding: 15px;
-        }
-        table {
-          display: block;
-          overflow-x: auto;
-        }
-      }
-    </style>
+    <meta name="description" content="سیستم مدیریت شفاخانه یوسفی" />
+    <title>مدیریت پرسونل</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- سایدبار -->
-    <aside class="sidebar">
-      <div class="sidebar-logo">
-        <i class="fa-solid fa-hospital"></i>
-        <span>شفاخانه</span>
-      </div>
-      <ul class="sidebar-menu">
-        <!-- منوی فعال (داشبورد) -->
-        <li>
-          <a href="index.html" class="active"
-            ><i class="fa-solid fa-chart-pie"></i> <span>داشبورد</span></a>
-        </li>
-        <li>
-          <a href="doctors.html"
-            ><i class="fa-solid fa-user-doctor"></i> <span>داکتران</span></a
-          >
-        </li>
-        <li>
-          <a href="nurses.html"><i class="fa-solid fa-users"></i> <span>پرستاران</span></a>
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fa-solid fa-bed-pulse"></i> <span>مریضان</span></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fa-solid fa-calendar-check"></i> <span>نوبت دهی</span></a
-          >
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fa-solid fa-notes-medical"></i>
-            <span>سوابق مریضی</span></a
-          >
-        </li>
-        <li>
-          <a href="#"><i class="fa-solid fa-gear"></i> <span>تنظیمات</span></a>
-        </li>
-        <li>
-          <a href="#"
-            ><i class="fa-solid fa-right-from-bracket"></i> <span>خروج</span></a
-          >
-        </li>
-      </ul>
-    </aside>
-
-    <!-- محتوای اصلی -->
-    <main class="main-content">
-      <!-- هشدار بالای صفحه -->
-      <div class="alert-box">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span>هشدار: ۲ درخواست نوبت جدید در انتظار تایید است.</span>
-      </div>
-
-      <!-- عنوان صفحه -->
-      <h1 class="page-title">داشبورد مدیریت شفاخانه</h1>
-
-      <!-- کارت‌های آماری -->
-      <div class="stats-container">
-        <!-- کارت داکتران -->
-        <div class="stat-card blue">
-          <div class="stat-info">
-            <h3>داکتران</h3>
-            <div class="number">18</div>
-            <div style="font-size: 0.9rem; opacity: 0.8">فعل</div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-icon">🏥</span> شفاخانه یوسفی
+        </div>
+        <ul class="sidebar-nav">
+          <li>
+            <a class="" href="dashboard.html"><span>▦</span>داشبورد</a>
+          </li>
+          <li>
+            <a class="" href="doctors.html"><span>👨‍⚕️</span>داکتران</a>
+          </li>
+          <li>
+            <a class="active" href="nurses.html"><span>👩‍⚕️</span>پرسونل</a>
+          </li>
+          <li>
+            <a class="" href="patients.html"><span>🧑</span>مریضان</a>
+          </li>
+          <li>
+            <a class="" href="appointments.html"><span>📅</span>نوبت دهی</a>
+          </li>
+          <li>
+            <a class="" href="medical_records.html"
+              ><span>📋</span>سوابق مریضی</a
+            >
+          </li>
+          <li>
+            <a class="" href="setting.html"><span>⚙</span>تنظیمات</a>
+          </li>
+          <li>
+            <a class="logout" href="index.html"><span>↪</span> خروج</a>
+          </li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="topbar">
+          <button class="mobile-menu" aria-label="منوی موبایل">☰</button>
+          <div>
+            <h1>مدیریت پرسونل</h1>
+            <span class="muted">سیستم مدیریت شفاخانه یوسفی</span>
           </div>
-          <div class="stat-icon">
-            <i class="fa-solid fa-user-doctor"></i>
-          </div>
+          <a class="btn btn-outline btn-sm" href="index.html">صفحه اصلی</a>
         </div>
 
-        <!-- کارت پرسونل -->
-        <div class="stat-card green">
-          <div class="stat-info">
-            <h3>پرسونل</h3>
-            <div class="number">26</div>
-            <div style="font-size: 0.9rem; opacity: 0.8">فعل</div>
+        <div class="content-card">
+          <div class="card-head">
+            <h2>فهرست پرسونل</h2>
+            <button class="btn btn-primary btn-sm">+ اضافه کردن پرسونل</button>
           </div>
-          <div class="stat-icon">
-            <i class="fa-solid fa-users"></i>
+          <div class="toolbar">
+            <input
+              class="form-control search"
+              data-search="#staff tbody tr"
+              placeholder="جستجوی نام یا وظیفه..." />
+          </div>
+          <div class="table-wrap">
+            <table id="staff">
+              <thead>
+                <tr>
+                  <th>نام</th>
+                  <th>وظیفه</th>
+                  <th>شماره تماس</th>
+                  <th>وضعیت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>سارا محمدی</td>
+                  <td>نرس</td>
+                  <td>۰۷۸۸۰۰۱۱۲۲</td>
+                  <td><span class="badge badge-success">فعال</span></td>
+                  <td>
+                    <div class="actions">
+                      <button class="btn btn-outline btn-sm">ویرایش</button
+                      ><button
+                        class="btn btn-danger btn-sm"
+                        data-confirm="این مورد حذف شود؟">
+                        حذف
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>مریم احمدی</td>
+                  <td>نرس</td>
+                  <td>۰۷۷۱۱۲۲۳۳۴</td>
+                  <td><span class="badge badge-success">فعال</span></td>
+                  <td>
+                    <div class="actions">
+                      <button class="btn btn-outline btn-sm">ویرایش</button
+                      ><button
+                        class="btn btn-danger btn-sm"
+                        data-confirm="این مورد حذف شود؟">
+                        حذف
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-
-        <!-- کارت مریضان -->
-        <div class="stat-card purple">
-          <div class="stat-info">
-            <h3>مریضان</h3>
-            <div class="number">245</div>
-            <div style="font-size: 0.9rem; opacity: 0.8">ثبت شده</div>
-          </div>
-          <div class="stat-icon">
-            <i class="fa-solid fa-bed-pulse"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- بخش مریضان اخیر -->
-      <div>
-        <h3 class="section-title">مریضان اخیر</h3>
-        <div class="recent-patients-grid">
-          <!-- مریض ۱ -->
-          <div class="patient-card">
-            <h4>احمد احمدی</h4>
-            <p>سن: ۳۰ سال</p>
-            <p>گروه خون: A+</p>
-            <button class="btn-view">مشاهده پروژه</button>
-          </div>
-          <!-- مریض ۲ -->
-          <div class="patient-card">
-            <h4>محمد کریمی</h4>
-            <p>سن: ۴۲ سال</p>
-            <p>گروه خون: O+</p>
-            <button class="btn-view">مشاهده پروژه</button>
-          </div>
-          <!-- مریض ۳ -->
-          <div class="patient-card">
-            <h4>فاطمه حسینی</h4>
-            <p>سن: ۲۹ سال</p>
-            <p>گروه خون: B+</p>
-            <button class="btn-view">مشاهده پروژه</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- بخش سابقه بیماری -->
-      <div>
-        <h3 class="section-title">سابقه بیماری</h3>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>نام مریض</th>
-                <th>تشخیص</th>
-                <th>داکتر</th>
-                <th>وضعیت</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>احمد احمدی</td>
-                <td>دیابت</td>
-                <td>داکتر رحیمی</td>
-                <td>بهبود</td>
-              </tr>
-              <tr>
-                <td>محمد کریمی</td>
-                <td>فشار خون</td>
-                <td>داکتر احمدی</td>
-                <td>در حال مراجعه</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </main>
+      </main>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>

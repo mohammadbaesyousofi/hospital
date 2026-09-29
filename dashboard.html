@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="سیستم مدیریت شفاخانه یوسفی" />
+    <title>داشبورد مدیریت</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-icon">🏥</span> شفاخانه یوسفی
+        </div>
+        <ul class="sidebar-nav">
+          <li>
+            <a class="active" href="dashboard.html"><span>▦</span>داشبورد</a>
+          </li>
+          <li>
+            <a class="" href="doctors.html"><span>👨‍⚕️</span>داکتران</a>
+          </li>
+          <li>
+            <a class="" href="nurses.html"><span>👩‍⚕️</span>پرسونل</a>
+          </li>
+          <li>
+            <a class="" href="patients.html"><span>🧑</span>مریضان</a>
+          </li>
+          <li>
+            <a class="" href="appointments.html"><span>📅</span>نوبت دهی</a>
+          </li>
+          <li>
+            <a class="" href="medical_records.html"
+              ><span>📋</span>سوابق مریضی</a
+            >
+          </li>
+          <li>
+            <a class="" href="setting.html"><span>⚙</span>تنظیمات</a>
+          </li>
+          <li>
+            <a class="logout" href="index.html"><span>↪</span> خروج</a>
+          </li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="topbar">
+          <button class="mobile-menu" aria-label="منوی موبایل">☰</button>
+          <div>
+            <h1>داشبورد مدیریت</h1>
+            <span class="muted">سیستم مدیریت شفاخانه یوسفی</span>
+          </div>
+          <a class="btn btn-outline btn-sm" href="index.html">صفحه اصلی</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div>
+              <div class="muted">داکتران فعال</div>
+              <div class="number">18</div>
+            </div>
+            <div class="icon">👨‍⚕️</div>
+          </div>
+          <div class="stat">
+            <div>
+              <div class="muted">پرسونل</div>
+              <div class="number">26</div>
+            </div>
+            <div class="icon">👥</div>
+          </div>
+          <div class="stat">
+            <div>
+              <div class="muted">مریضان ثبت‌شده</div>
+              <div class="number">245</div>
+            </div>
+            <div class="icon">🧑</div>
+          </div>
+          <div class="stat">
+            <div>
+              <div class="muted">نوبت‌های امروز</div>
+              <div class="number">12</div>
+            </div>
+            <div class="icon">📅</div>
+          </div>
+        </div>
+        <div class="content-card">
+          <div class="card-head">
+            <h2>مریضان اخیر</h2>
+            <a class="btn btn-outline btn-sm" href="patients.html" >مشاهده همه</a>
+          </div>
+          <div class="patient-grid">
+            <div class="patient-card">
+              <div class="patient-avatar">🧑</div>
+              <h3>احمد احمدی</h3>
+              <p>سن: ۳۰ سال · گروه خون: A+</p>
+              <a class="btn btn-primary btn-sm" href="medical_records.html" style="margin-top: 10px" >مشاهده پرونده</a>
+            </div>
+            <div class="patient-card">
+              <div class="patient-avatar">🧑</div>
+              <h3>محمد کریمی</h3>
+              <p>سن: ۴۲ سال · گروه خون: O+</p>
+              <a class="btn btn-primary btn-sm" href="medical_records.html" style="margin-top: 10px" >مشاهده پرونده</a>
+            </div>
+            <div class="patient-card">
+              <div class="patient-avatar">🧑</div>
+              <h3>فاطمه حسینی</h3>
+              <p>سن: ۲۵ سال · گروه خون: B+</p>
+              <a class="btn btn-primary btn-sm" href="medical_records.html" style="margin-top: 10px" >مشاهده پرونده</a>
+            </div>
+          </div>
+        </div>
+        <div class="content-card">
+          <div class="card-head">
+            <h2>آخرین سوابق</h2>
+            <a class="btn btn-outline btn-sm" href="medical_records.html">همه سوابق</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>مریض</th>
+                  <th>تشخیص</th>
+                  <th>داکتر</th>
+                  <th>وضعیت</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>احمد احمدی</td>
+                  <td>دیابت</td>
+                  <td>دکتر رحیمی</td>
+                  <td><span class="badge badge-success">پایدار</span></td>
+                </tr>
+                <tr>
+                  <td>محمد کریمی</td>
+                  <td>فشار خون</td>
+                  <td>دکتر احمدی</td>
+                  <td><span class="badge badge-warning">در حال تداوی</span></td>
+                </tr>
+                <tr>
+                  <td>فاطمه حسینی</td>
+                  <td>آسم</td>
+                  <td>دکتر سادات</td>
+                  <td>
+                    <span class="badge badge-danger">نیاز به مراقبت</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
