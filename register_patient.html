@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="سیستم مدیریت شفاخانه یوسفی">
+<title>ثبت مریض</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+<div class="sidebar-brand"><span class="brand-icon">🏥</span> شفاخانه یوسفی</div>
+<ul class="sidebar-nav">
+<li><a href="dashboard.html"><span>▦</span>داشبورد</a></li>
+<li><a href="doctors.html"><span>👨‍⚕️</span>داکتران</a></li>
+<li><a href="nurses.html"><span>👩‍⚕️</span>نرس‌ها</a></li>
+<li><a href="patients.html"><span>🧑</span>مریضان</a></li>
+<li><a href="appointments.html"><span>📅</span>نوبت دهی</a></li>
+<li><a href="medical_records.html"><span>📋</span>سوابق مریضی</a></li>
+<li><a href="setting.html"><span>⚙</span>تنظیمات</a></li>
+<li><a class="logout" href="index.html"><span>↪</span> خروج</a></li>
+</ul>
+</aside>
+<main class="main">
+<div class="topbar">
+<button class="mobile-menu" aria-label="منوی موبایل">☰</button>
+<div><h1>ثبت مریض جدید</h1><span class="muted">سیستم مدیریت شفاخانه یوسفی</span></div>
+<a class="btn btn-outline btn-sm" href="index.html">صفحه اصلی</a>
+</div>
+<div class="content-card">
+<div class="card-head">
+<h2>ثبت مریض جدید</h2>
+<a class="btn btn-outline btn-sm" href="patients.html">بازگشت به فهرست</a>
+</div>
+<div class="alert alert-success form-message hidden"></div>
+<form data-registration="patient" class="form-grid">
+<div class="form-group"><label>نام و نام خانوادگی *</label><input class="form-control" name="name" required placeholder="نام مریض"></div>
+<div class="form-group"><label>نام پدر *</label><input class="form-control" name="father" required placeholder="نام پدر"></div>
+<div class="form-group"><label>سن *</label><input class="form-control" name="age" required type="number" min="0" max="120" placeholder="سن"></div>
+<div class="form-group"><label>جنسیت *</label><select class="form-control" name="gender" required><option>مرد</option><option>زن</option></select></div>
+<div class="form-group"><label>گروه خون *</label><select class="form-control" name="blood" required><option value="">انتخاب گروه خون</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+<div class="form-group"><label>شماره تماس *</label><input class="form-control" name="phone" required inputmode="tel" placeholder="07xxxxxxxx"></div>
+<div class="form-group"><label>تاریخ تولد</label><input class="form-control" name="birthdate" type="date"></div>
+<div class="form-group"><label>شماره تذکره</label><input class="form-control" name="nationalId" placeholder="شماره تذکره"></div>
+<div class="form-group full"><label>آدرس</label><input class="form-control" name="address" placeholder="آدرس محل سکونت"></div>
+<div class="form-group"><label>نام تماس اضطراری</label><input class="form-control" name="emergencyName" placeholder="نام شخص تماس"></div>
+<div class="form-group"><label>شماره تماس اضطراری</label><input class="form-control" name="emergencyPhone" inputmode="tel" placeholder="07xxxxxxxx"></div>
+<div class="form-group full"><label>شکایت / دلیل مراجعه</label><textarea class="form-control" name="complaint" placeholder="علت مراجعه مریض"></textarea></div>
+<div class="full" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" type="submit">ثبت مریض</button><a class="btn btn-outline" href="patients.html">انصراف</a></div>
+</form>
+</div>
+</main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
